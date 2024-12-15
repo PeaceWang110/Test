@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Registration Visualization</title>
+    <title>Vehicle Registration Bar Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        .line {
-            fill: none;
-            stroke-width: 2;
-        }
         .tooltip {
             position: absolute;
             background-color: white;
@@ -18,47 +14,37 @@
             font-size: 12px;
             pointer-events: none;
         }
-        .legend {
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-        }
-        .legend rect {
-            stroke-width: 2;
-        }
     </style>
 </head>
 <body>
-    <h1>Vehicle Registration Trends</h1>
+    <h1>Bar Chart: Honda and Toyota Registrations (2018)</h1>
     <svg width="800" height="500"></svg>
     <script>
         const data = [
-            {"month": "2016-01", "make": "MAZDA", "number": 617},
-            {"month": "2016-01", "make": "MERCEDES", "number": 0},
-            {"month": "2016-01", "make": "NISSAN", "number": 624},
-            {"month": "2016-01", "make": "HONDA", "number": 1448},
-            {"month": "2016-01", "make": "TOYOTA", "number": 1480},
-            {"month": "2016-02", "make": "MAZDA", "number": 438},
-            {"month": "2016-02", "make": "MERCEDES", "number": 0},
-            {"month": "2016-02", "make": "NISSAN", "number": 590},
-            {"month": "2016-02", "make": "HONDA", "number": 981},
-            {"month": "2016-02", "make": "TOYOTA", "number": 1158},
-            // Continuously fill all months from 2016-01 to 2019-02
-            {"month": "2016-03", "make": "MAZDA", "number": 560},
-            {"month": "2016-03", "make": "MERCEDES", "number": 30},
-            {"month": "2016-03", "make": "NISSAN", "number": 500},
-            {"month": "2016-03", "make": "HONDA", "number": 1234},
-            {"month": "2016-03", "make": "TOYOTA", "number": 1290},
-            {"month": "2016-04", "make": "MAZDA", "number": 530},
-            {"month": "2016-04", "make": "MERCEDES", "number": 20},
-            {"month": "2016-04", "make": "NISSAN", "number": 550},
-            {"month": "2016-04", "make": "HONDA", "number": 1350},
-            {"month": "2016-04", "make": "TOYOTA", "number": 1400},
-            // Continue filling in months sequentially...
-            {"month": "2019-02", "make": "MAZDA", "number": 630},
-            {"month": "2019-02", "make": "MERCEDES", "number": 50},
-            {"month": "2019-02", "make": "NISSAN", "number": 550},
-            {"month": "2019-02", "make": "HONDA", "number": 1500},
-            {"month": "2019-02", "make": "TOYOTA", "number": 1580}
+            { "month": "2018-01", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 362, "Multi-purpose Vehicle": 248, "Sedan": 254, "SUV": 355 } },
+            { "month": "2018-01", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 15, "Multi-purpose Vehicle": 481, "Sedan": 250, "SUV": 115 } },
+            { "month": "2018-02", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 165, "Multi-purpose Vehicle": 246, "Sedan": 105, "SUV": 370 } },
+            { "month": "2018-02", "make": "TOYOTA", "models": { "Coupe": 2, "Hatchback": 65, "Multi-purpose Vehicle": 460, "Sedan": 217, "SUV": 191 } },
+            { "month": "2018-03", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 204, "Multi-purpose Vehicle": 267, "Sedan": 282, "SUV": 303 } },
+            { "month": "2018-03", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 70, "Multi-purpose Vehicle": 446, "Sedan": 363, "SUV": 302 } },
+            { "month": "2018-04", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 295, "Multi-purpose Vehicle": 479, "Sedan": 387, "SUV": 308 } },
+            { "month": "2018-04", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 71, "Multi-purpose Vehicle": 440, "Sedan": 364, "SUV": 343 } },
+            { "month": "2018-05", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 350, "Multi-purpose Vehicle": 605, "Sedan": 378, "SUV": 359 } },
+            { "month": "2018-05", "make": "TOYOTA", "models": { "Coupe": 1, "Hatchback": 102, "Multi-purpose Vehicle": 403, "Sedan": 400, "SUV": 351 } },
+            { "month": "2018-06", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 474, "Multi-purpose Vehicle": 1100, "Sedan": 359, "SUV": 739 } },
+            { "month": "2018-06", "make": "TOYOTA", "models": { "Coupe": 2, "Hatchback": 296, "Multi-purpose Vehicle": 804, "Sedan": 720, "SUV": 627 } },
+            { "month": "2018-07", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 183, "Multi-purpose Vehicle": 236, "Sedan": 273, "SUV": 107 } },
+            { "month": "2018-07", "make": "TOYOTA", "models": { "Coupe": 2, "Hatchback": 10, "Multi-purpose Vehicle": 304, "Sedan": 149, "SUV": 195 } },
+            { "month": "2018-08", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 264, "Multi-purpose Vehicle": 286, "Sedan": 253, "SUV": 276 } },
+            { "month": "2018-08", "make": "TOYOTA", "models": { "Coupe": 2, "Hatchback": 17, "Multi-purpose Vehicle": 324, "Sedan": 214, "SUV": 191 } },
+            { "month": "2018-09", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 207, "Multi-purpose Vehicle": 322, "Sedan": 218, "SUV": 320 } },
+            { "month": "2018-09", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 19, "Multi-purpose Vehicle": 345, "Sedan": 344, "SUV": 228 } },
+            { "month": "2018-10", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 269, "Multi-purpose Vehicle": 292, "Sedan": 407, "SUV": 183 } },
+            { "month": "2018-10", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 19, "Multi-purpose Vehicle": 648, "Sedan": 413, "SUV": 206 } },
+            { "month": "2018-11", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 280, "Multi-purpose Vehicle": 188, "Sedan": 235, "SUV": 176 } },
+            { "month": "2018-11", "make": "TOYOTA", "models": { "Coupe": 2, "Hatchback": 49, "Multi-purpose Vehicle": 495, "Sedan": 420, "SUV": 229 } },
+            { "month": "2018-12", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 132, "Multi-purpose Vehicle": 328, "Sedan": 265, "SUV": 346 } },
+            { "month": "2018-12", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 62, "Multi-purpose Vehicle": 422, "Sedan": 387, "SUV": 220 } }
         ];
 
         const svg = d3.select("svg");
@@ -67,91 +53,81 @@
         const height = +svg.attr("height") - margin.top - margin.bottom;
         const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const x = d3.scalePoint()
-            .domain(["2016-01", "2016-02", "2016-03", "2016-04", "2016-05", "2016-06", "2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12",
-                     "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12",
-                     "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08", "2018-09", "2018-10", "2018-11", "2018-12",
-                     "2019-01", "2019-02"])
-            .range([0, width]);
+        const x0 = d3.scaleBand()
+            .domain([...new Set(data.map(d => d.month))])
+            .range([0, width])
+            .padding(0.2);
+
+        const x1 = d3.scaleBand()
+            .domain(["HONDA", "TOYOTA"])
+            .range([0, x0.bandwidth()])
+            .padding(0.05);
 
         const y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.number)])
+            .domain([0, d3.max(data, d => d3.sum(Object.values(d.models)))])
             .nice()
             .range([height, 0]);
 
         const color = d3.scaleOrdinal()
-            .domain(["MAZDA", "MERCEDES", "NISSAN", "HONDA", "TOYOTA"])
-            .range(["red", "orange", "purple", "green", "blue"]);
-
-        const line = d3.line()
-            .x(d => x(d.month))
-            .y(d => y(d.number));
+            .domain(["HONDA", "TOYOTA"])
+            .range(["green", "blue"]);
 
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        const makes = [...new Set(data.map(d => d.make))];
+        const groupedData = d3.groups(data, d => d.month);
 
-        makes.forEach(make => {
-            const makeData = data.filter(d => d.make === make);
+        g.append("g")
+            .selectAll("g")
+            .data(groupedData)
+            .enter().append("g")
+            .attr("transform", d => `translate(${x0(d[0])},0)`)
+            .selectAll("rect")
+            .data(d => d[1])
+            .enter().append("rect")
+            .attr("x", d => x1(d.make))
+            .attr("y", d => y(d3.sum(Object.values(d.models))))
+            .attr("width", x1.bandwidth())
+            .attr("height", d => height - y(d3.sum(Object.values(d.models))))
+            .attr("fill", d => color(d.make))
+            .on("mouseover", (event, d) => {
+                const models = d.models;
+                const tooltipHtml = `<strong>${d.make} (${d.month})</strong><br>` +
+                    Object.entries(models).map(([model, count]) => `${model}: ${count}`).join("<br>");
 
-            g.append("path")
-                .datum(makeData)
-                .attr("class", "line")
-                .attr("d", line)
-                .attr("stroke", color(make))
-                .on("mouseover", function(event, d) {
-                    d3.select(this).style("stroke-width", 4);
-                })
-                .on("mouseout", function(event, d) {
-                    d3.select(this).style("stroke-width", 2);
-                });
-
-            g.selectAll(".dot")
-                .data(makeData)
-                .enter().append("circle")
-                .attr("cx", d => x(d.month))
-                .attr("cy", d => y(d.number))
-                .attr("r", 5)
-                .attr("fill", color(make))
-                .on("mouseover", (event, d) => {
-                    tooltip.transition().duration(200).style("opacity", 0.9);
-                    tooltip.html(`<strong>${d.make}</strong><br>Month: ${d.month}<br>Registrations: ${d.number}`)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 28) + "px");
-                })
-                .on("mouseout", () => {
-                    tooltip.transition().duration(200).style("opacity", 0);
-                });
-        });
+                tooltip.transition().duration(200).style("opacity", .9);
+                tooltip.html(tooltipHtml)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", () => tooltip.transition().duration(500).style("opacity", 0));
 
         g.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x).tickValues(x.domain().filter((d, i) => i % 6 === 0)));
+            .call(d3.axisBottom(x0));
 
         g.append("g")
-            .call(d3.axisLeft(y).ticks(10).tickFormat(d => `${d}`));
+            .call(d3.axisLeft(y));
 
-        // Adding legend
         const legend = svg.append("g")
             .attr("transform", `translate(${width + margin.left + 20}, ${margin.top})`)
             .attr("class", "legend");
 
-        makes.forEach((make, i) => {
+        ["HONDA", "TOYOTA"].forEach((key, i) => {
             const legendRow = legend.append("g")
                 .attr("transform", `translate(0, ${i * 20})`);
 
             legendRow.append("rect")
                 .attr("width", 10)
                 .attr("height", 10)
-                .attr("fill", color(make));
+                .attr("fill", color(key));
 
             legendRow.append("text")
                 .attr("x", 20)
                 .attr("y", 10)
                 .attr("text-anchor", "start")
-                .text(make)
+                .text(key)
                 .style("text-transform", "capitalize");
         });
 
@@ -160,7 +136,7 @@
             .attr("y", margin.top / 2)
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
-            .text("Vehicle Registration Trends by Month");
+            .text("Bar Chart: Honda and Toyota Registrations by Models (2018)");
     </script>
 </body>
 </html>
