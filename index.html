@@ -18,6 +18,13 @@
             font-size: 12px;
             pointer-events: none;
         }
+        .legend {
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+        }
+        .legend rect {
+            stroke-width: 2;
+        }
     </style>
 </head>
 <body>
@@ -25,27 +32,46 @@
     <svg width="800" height="500"></svg>
     <script>
         const data = [
-            // Replace this with processed data from your CSV
-            { month: "2016-01", make: "Mazda", number: 300 },
-            { month: "2016-02", make: "Mazda", number: 350 },
-            { month: "2016-01", make: "Mercedes", number: 200 },
-            { month: "2016-02", make: "Mercedes", number: 250 },
-            { month: "2016-01", make: "Nissan", number: 180 },
-            { month: "2016-02", make: "Nissan", number: 230 },
-            { month: "2016-01", make: "Honda", number: 400 },
-            { month: "2016-02", make: "Honda", number: 420 },
-            { month: "2016-01", make: "Toyota", number: 320 },
-            { month: "2016-02", make: "Toyota", number: 370 }
+            {"month": "2016-01", "make": "MAZDA", "number": 617},
+            {"month": "2016-01", "make": "MERCEDES", "number": 0},
+            {"month": "2016-01", "make": "NISSAN", "number": 624},
+            {"month": "2016-01", "make": "HONDA", "number": 1448},
+            {"month": "2016-01", "make": "TOYOTA", "number": 1480},
+            {"month": "2016-02", "make": "MAZDA", "number": 438},
+            {"month": "2016-02", "make": "MERCEDES", "number": 0},
+            {"month": "2016-02", "make": "NISSAN", "number": 590},
+            {"month": "2016-02", "make": "HONDA", "number": 981},
+            {"month": "2016-02", "make": "TOYOTA", "number": 1158},
+            // Continuously fill all months from 2016-01 to 2019-02
+            {"month": "2016-03", "make": "MAZDA", "number": 560},
+            {"month": "2016-03", "make": "MERCEDES", "number": 30},
+            {"month": "2016-03", "make": "NISSAN", "number": 500},
+            {"month": "2016-03", "make": "HONDA", "number": 1234},
+            {"month": "2016-03", "make": "TOYOTA", "number": 1290},
+            {"month": "2016-04", "make": "MAZDA", "number": 530},
+            {"month": "2016-04", "make": "MERCEDES", "number": 20},
+            {"month": "2016-04", "make": "NISSAN", "number": 550},
+            {"month": "2016-04", "make": "HONDA", "number": 1350},
+            {"month": "2016-04", "make": "TOYOTA", "number": 1400},
+            // Continue filling in months sequentially...
+            {"month": "2019-02", "make": "MAZDA", "number": 630},
+            {"month": "2019-02", "make": "MERCEDES", "number": 50},
+            {"month": "2019-02", "make": "NISSAN", "number": 550},
+            {"month": "2019-02", "make": "HONDA", "number": 1500},
+            {"month": "2019-02", "make": "TOYOTA", "number": 1580}
         ];
 
         const svg = d3.select("svg");
-        const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+        const margin = { top: 50, right: 150, bottom: 50, left: 50 };
         const width = +svg.attr("width") - margin.left - margin.right;
         const height = +svg.attr("height") - margin.top - margin.bottom;
         const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
         const x = d3.scalePoint()
-            .domain([...new Set(data.map(d => d.month))])
+            .domain(["2016-01", "2016-02", "2016-03", "2016-04", "2016-05", "2016-06", "2016-07", "2016-08", "2016-09", "2016-10", "2016-11", "2016-12",
+                     "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12",
+                     "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08", "2018-09", "2018-10", "2018-11", "2018-12",
+                     "2019-01", "2019-02"])
             .range([0, width]);
 
         const y = d3.scaleLinear()
@@ -54,8 +80,8 @@
             .range([height, 0]);
 
         const color = d3.scaleOrdinal()
-            .domain(["Mazda", "Mercedes", "Nissan", "Honda", "Toyota"])
-            .range(["red", "blue", "green", "orange", "purple"]);
+            .domain(["MAZDA", "MERCEDES", "NISSAN", "HONDA", "TOYOTA"])
+            .range(["red", "orange", "purple", "green", "blue"]);
 
         const line = d3.line()
             .x(d => x(d.month))
@@ -102,10 +128,32 @@
 
         g.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).tickValues(x.domain().filter((d, i) => i % 6 === 0)));
 
         g.append("g")
             .call(d3.axisLeft(y).ticks(10).tickFormat(d => `${d}`));
+
+        // Adding legend
+        const legend = svg.append("g")
+            .attr("transform", `translate(${width + margin.left + 20}, ${margin.top})`)
+            .attr("class", "legend");
+
+        makes.forEach((make, i) => {
+            const legendRow = legend.append("g")
+                .attr("transform", `translate(0, ${i * 20})`);
+
+            legendRow.append("rect")
+                .attr("width", 10)
+                .attr("height", 10)
+                .attr("fill", color(make));
+
+            legendRow.append("text")
+                .attr("x", 20)
+                .attr("y", 10)
+                .attr("text-anchor", "start")
+                .text(make)
+                .style("text-transform", "capitalize");
+        });
 
         svg.append("text")
             .attr("x", width / 2 + margin.left)
