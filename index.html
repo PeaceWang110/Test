@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registration Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .line {
+            fill: none;
+            stroke-width: 2;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vehicle Registration Trends</h1>
+    <svg width="800" height="500"></svg>
+    <script>
+        const data = [
+            // Replace this with processed data from your CSV
+            { month: "2016-01", make: "Mazda", number: 300 },
+            { month: "2016-02", make: "Mazda", number: 350 },
+            { month: "2016-01", make: "Mercedes", number: 200 },
+            { month: "2016-02", make: "Mercedes", number: 250 },
+            { month: "2016-01", make: "Nissan", number: 180 },
+            { month: "2016-02", make: "Nissan", number: 230 },
+            { month: "2016-01", make: "Honda", number: 400 },
+            { month: "2016-02", make: "Honda", number: 420 },
+            { month: "2016-01", make: "Toyota", number: 320 },
+            { month: "2016-02", make: "Toyota", number: 370 }
+        ];
 
+        const svg = d3.select("svg");
+        const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+        const width = +svg.attr("width") - margin.left - margin.right;
+        const height = +svg.attr("height") - margin.top - margin.bottom;
+        const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const x = d3.scalePoint()
+            .domain([...new Set(data.map(d => d.month))])
+            .range([0, width]);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.number)])
+            .nice()
+            .range([height, 0]);
+
+        const color = d3.scaleOrdinal()
+            .domain(["Mazda", "Mercedes", "Nissan", "Honda", "Toyota"])
+            .range(["red", "blue", "green", "orange", "purple"]);
+
+        const line = d3.line()
+            .x(d => x(d.month))
+            .y(d => y(d.number));
+
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        const makes = [...new Set(data.map(d => d.make))];
+
+        makes.forEach(make => {
+            const makeData = data.filter(d => d.make === make);
+
+            g.append("path")
+                .datum(makeData)
+                .attr("class", "line")
+                .attr("d", line)
+                .attr("stroke", color(make))
+                .on("mouseover", function(event, d) {
+                    d3.select(this).style("stroke-width", 4);
+                })
+                .on("mouseout", function(event, d) {
+                    d3.select(this).style("stroke-width", 2);
+                });
+
+            g.selectAll(".dot")
+                .data(makeData)
+                .enter().append("circle")
+                .attr("cx", d => x(d.month))
+                .attr("cy", d => y(d.number))
+                .attr("r", 5)
+                .attr("fill", color(make))
+                .on("mouseover", (event, d) => {
+                    tooltip.transition().duration(200).style("opacity", 0.9);
+                    tooltip.html(`<strong>${d.make}</strong><br>Month: ${d.month}<br>Registrations: ${d.number}`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.transition().duration(200).style("opacity", 0);
+                });
+        });
+
+        g.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x));
+
+        g.append("g")
+            .call(d3.axisLeft(y).ticks(10).tickFormat(d => `${d}`));
+
+        svg.append("text")
+            .attr("x", width / 2 + margin.left)
+            .attr("y", margin.top / 2)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("Vehicle Registration Trends by Month");
+    </script>
+</body>
+</html>
