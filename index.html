@@ -14,28 +14,65 @@
             margin-bottom: 20px;
             gap: 15px;
         }
-        .logo {
-            width: 100px;
-            height: auto;
+        .logo-box {
+            width: 150px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
         }
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        /* Tooltip 样式 */
         .tooltip {
             position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: white;
             border: 1px solid #ccc;
-            padding: 5px;
+            border-radius: 5px;
+            padding: 10px;
             font-size: 12px;
-            pointer-events: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            white-space: nowrap;
+        }
+        .logo-box:hover .tooltip {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-<div class="logo-container">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0.jpeg" alt="Toyota Logo" class="logo">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E5%A5%94%E9%A9%B0.jpeg" alt="Honda Logo" class="logo">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%97%A5%E4%BA%A7.jpeg" alt="Nissan Logo" class="logo">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%9C%AC%E7%94%B0.jpeg" alt="Mercedes Logo" class="logo">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E9%A9%AC%E8%87%AA%E8%BE%BE.jpeg" alt="Mazda Logo" class="logo">
+    <div class="logo-container">
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0.jpeg" alt="Toyota Logo">
+            <div class="tooltip">Toyota: Founded in 1937, known for innovation and reliability.</div>
+        </div>
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E5%A5%94%E9%A9%B0.jpeg" alt="Honda Logo">
+            <div class="tooltip">Honda: Established in 1948, famous for motorcycles and cars.</div>
+        </div>
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%97%A5%E4%BA%A7.jpeg" alt="Nissan Logo">
+            <div class="tooltip">Nissan: Originated in 1933, excels in innovative electric vehicles.</div>
+        </div>
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%9C%AC%E7%94%B0.jpeg" alt="Mercedes Logo">
+            <div class="tooltip">Mercedes-Benz: Established in 1926, a symbol of luxury and performance.</div>
+        </div>
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E9%A9%AC%E8%87%AA%E8%BE%BE.jpeg" alt="Mazda Logo">
+            <div class="tooltip">Mazda: Founded in 1920, known for its rotary engine innovation.</div>
+        </div>
     </div>
 
     <!-- Google Charts Line Chart -->
