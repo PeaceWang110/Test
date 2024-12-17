@@ -107,6 +107,9 @@
 <body>
 
 <div class="button-container">
+    
+    <button class="button" onclick="scrollToBarChart()">Bar Chart</button>
+    <button class="button" onclick="scrollToAverageRegistrations()">Average Registrations</button>
     <button class="button" onclick="showHome()">Home</button>
     <button class="button" onclick="showCaseStudy()">Vehicle Registration</button>
 </div>
@@ -123,9 +126,9 @@
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0.jpeg" alt="Toyota Logo">
     </div><div class="car-images" id="toyota-images">
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E5%8D%A1%E7%BD%97%E6%8B%89.jpeg" alt="丰田卡罗拉">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田mpv.jpeg" alt="丰田MPV">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田霸道.jpeg" alt="丰田霸道">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田塞纳.jpeg" alt="丰田塞纳">
+        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0mpv.jpeg" alt="丰田MPV">
+        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E9%9C%B8%E9%81%93.jpeg" alt="丰田霸道">
+        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E5%A1%9E%E7%BA%B3.jpeg" alt="丰田塞纳">
     </div>
     
     <div class="brand-info" data-tooltip="Honda: Established in 1948 by Soichiro Honda. Famous for motorcycles, cars, and engineering excellence.">
@@ -422,6 +425,13 @@
 
     function showCaseStudy() {
         document.querySelector("#curve_chart").scrollIntoView({ behavior: "smooth" });
+    }
+    function scrollToBarChart() {
+        document.getElementById("chart1").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function scrollToAverageRegistrations() {
+        document.getElementById("chart2").scrollIntoView({ behavior: "smooth" });
     }
 
 </script>
