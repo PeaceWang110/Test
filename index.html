@@ -61,15 +61,15 @@
         .car-images img {
             width: 200px; 
             margin: 10px; 
-            border-radius: 8px; 
+            border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
             transition: transform 0.3s ease; 
         }
 
         .car-images img:hover {
-            transform: scale(1.1); 
+            transform: scale(1.1);
         }
-      
+
         .button-container {
             margin: 20px 0;
             text-align: center;
@@ -120,10 +120,10 @@
     <div class="brand-info" data-tooltip="Toyota: Founded in 1937 by Kiichiro Toyoda. Known for innovation, reliability, and environmental consciousness.">
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0.jpeg" alt="Toyota Logo">
     </div><div class="car-images" id="toyota-images">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田卡罗拉.jpeg" alt="丰田卡罗拉">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田mpv.jpeg" alt="丰田MPV">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田霸道.jpeg" alt="丰田霸道">
-        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田塞纳.jpeg" alt="丰田塞纳">
+        <img src="https://github.com/PeaceWang110/test/blob/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E5%8D%A1%E7%BD%97%E6%8B%89.jpeg" alt="丰田卡罗拉">
+        <img src="https://github.com/PeaceWang110/test/blob/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0mpv.jpeg" alt="丰田MPV">
+        <img src="https://github.com/PeaceWang110/test/blob/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E9%9C%B8%E9%81%93.jpeg" alt="丰田霸道">
+        <img src="https://github.com/PeaceWang110/test/blob/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0%E5%A1%9E%E7%BA%B3.jpeg" alt="丰田塞纳">
     </div>
     
     <div class="brand-info" data-tooltip="Honda: Established in 1948 by Soichiro Honda. Famous for motorcycles, cars, and engineering excellence.">
@@ -150,7 +150,6 @@
 
 <script>
     
-   
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -207,12 +206,11 @@
         chart.draw(data, options);
     }
     
-   
     document.querySelectorAll('.brand-info').forEach((element) => {
         element.addEventListener('mouseover', (event) => {
             const tooltip = document.createElement('div');
             tooltip.className = 'tooltip';
-            tooltip.textContent = element.getAttribute('data-tooltip'); 
+            tooltip.textContent = element.getAttribute('data-tooltip');
             document.body.appendChild(tooltip);
 
             tooltip.style.left = event.pageX + 10 + 'px';
@@ -404,10 +402,10 @@
     g2.append("g")
         .call(d3.axisLeft(y2));
         document.querySelectorAll('.brand-info').forEach((element, index) => {
-   
+
     const toyotaImages = document.getElementById('toyota-images');
     
-    
+
     if (index === 0) { 
         element.addEventListener('mouseover', () => {
             toyotaImages.style.display = 'block';
@@ -417,12 +415,11 @@
         });
     }
 });
-      
+
         function scrollToDescription() {
             document.getElementById("description").scrollIntoView({ behavior: "smooth" });
         }
 
-      
         function scrollToChart() {
             document.getElementById("chart").scrollIntoView({ behavior: "smooth" });
         }
