@@ -51,22 +51,89 @@
         .brand-info:hover {
             background-color: #e6f7ff;
         }
+
+        .car-images {
+            display: none; 
+            text-align: center; 
+            margin-top: 20px;
+        }
+
+        .car-images img {
+            width: 200px; 
+            margin: 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+            transition: transform 0.3s ease; 
+        }
+
+        .car-images img:hover {
+            transform: scale(1.1); 
+        }
+      
+        .button-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .description {
+            background: lightgray;
+            padding: 20px;
+            color: #000;
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
- 
+
+<div class="button-container">
+    <button class="button" onclick="scrollToDescription()">Home</button>
+    <button class="button" onclick="scrollToChart()">Vehicle Registration</button>
+</div>
+
+<div class="description" id="description">
+    <h1>Number and Classification of Newly Registered Cars, 2016-2019</h1>
+    <p>This section contains information about car registrations, classifications, and trends.</p>
+</div>
+
 <div class="brand-info-container">
     <div class="brand-info" data-tooltip="Toyota: Founded in 1937 by Kiichiro Toyoda. Known for innovation, reliability, and environmental consciousness.">
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E4%B8%B0%E7%94%B0.jpeg" alt="Toyota Logo">
+    </div><div class="car-images" id="toyota-images">
+        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田卡罗拉.jpeg" alt="丰田卡罗拉">
+        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田mpv.jpeg" alt="丰田MPV">
+        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田霸道.jpeg" alt="丰田霸道">
+        <img src="C:\Users\lenovo\OneDrive\桌面\汽车大全\丰田塞纳.jpeg" alt="丰田塞纳">
     </div>
+    
     <div class="brand-info" data-tooltip="Honda: Established in 1948 by Soichiro Honda. Famous for motorcycles, cars, and engineering excellence.">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%9C%AC%E7%94%B0.jpeg" alt="Honda Logo">
+        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E5%A5%94%E9%A9%B0.jpeg" alt="Honda Logo">
     </div>
     <div class="brand-info" data-tooltip="Nissan: Originated in 1933, co-founded by Masujiro Hashimoto. Known for electric vehicle innovation and global reach.">
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%97%A5%E4%BA%A7.jpeg" alt="Nissan Logo">
     </div>
     <div class="brand-info" data-tooltip="Mercedes-Benz: Established in 1926 by Karl Benz and Gottlieb Daimler. A symbol of luxury, performance, and cutting-edge technology.">
-        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E5%A5%94%E9%A9%B0.jpeg" alt="Mercedes Logo">
+        <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E6%9C%AC%E7%94%B0.jpeg" alt="Mercedes Logo">
     </div>
     <div class="brand-info" data-tooltip="Mazda: Founded in 1920 by Jujiro Matsuda. Known for its rotary engine innovation and driving dynamics.">
         <img src="https://raw.githubusercontent.com/PeaceWang110/test/main/%E6%B1%BD%E8%BD%A6%E5%A4%A7%E5%85%A8/%E9%A9%AC%E8%87%AA%E8%BE%BE.jpeg" alt="Mazda Logo">
@@ -83,6 +150,7 @@
 
 <script>
     
+   
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -139,6 +207,7 @@
         chart.draw(data, options);
     }
     
+   
     document.querySelectorAll('.brand-info').forEach((element) => {
         element.addEventListener('mouseover', (event) => {
             const tooltip = document.createElement('div');
@@ -334,6 +403,30 @@
 
     g2.append("g")
         .call(d3.axisLeft(y2));
+        document.querySelectorAll('.brand-info').forEach((element, index) => {
+   
+    const toyotaImages = document.getElementById('toyota-images');
+    
+    
+    if (index === 0) { 
+        element.addEventListener('mouseover', () => {
+            toyotaImages.style.display = 'block';
+        });
+        element.addEventListener('mouseout', () => {
+            toyotaImages.style.display = 'none';
+        });
+    }
+});
+      
+        function scrollToDescription() {
+            document.getElementById("description").scrollIntoView({ behavior: "smooth" });
+        }
+
+      
+        function scrollToChart() {
+            document.getElementById("chart").scrollIntoView({ behavior: "smooth" });
+        }
+
 </script>
 
 </body>
