@@ -70,9 +70,53 @@
             transform: scale(1.1);
         }
 
+        .description {
+            background: lightgray;
+            padding: 20px;
+            color: #000;
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
+
+<div class="button-container">
+    <button class="button" onclick="showHome()">Home</button>
+    <button class="button" onclick="showCaseStudy()">Vehicle Registration</button>
+</div>
+
+<div class="dashboard">
+    <div class="description" id="home">
+        <h1>Number and Classification of Newly Registered Cars, 2016-2019</h1>
+        <p>This section contains information about car registrations, classifications, and trends.</p>
+    </div>
+</div>
 
 <div class="brand-info-container">
     <div class="brand-info" data-tooltip="Toyota: Founded in 1937 by Kiichiro Toyoda. Known for innovation, reliability, and environmental consciousness.">
@@ -187,7 +231,6 @@
     });
 
     
-    // Data for the first chart
     const data1 = [
             { "month": "2018-01", "make": "HONDA", "models": { "Coupe": 0, "Hatchback": 362, "Multi-purpose Vehicle": 248, "Sedan": 254, "SUV": 355 } },
             { "month": "2018-01", "make": "TOYOTA", "models": { "Coupe": 0, "Hatchback": 15, "Multi-purpose Vehicle": 481, "Sedan": 250, "SUV": 115 } },
@@ -298,7 +341,6 @@
                 .style("text-transform", "capitalize");
         });
 
-    // Data for the second chart
     const data2 = [
             { vehicle: "Hatchback", make: "Honda", average: 89.72 },
             { vehicle: "Hatchback", make: "Toyota", average: 39.94 },
@@ -373,6 +415,14 @@
         });
     }
 });
+
+    function showHome() {
+        document.querySelector(".description").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showCaseStudy() {
+        document.querySelector("#curve_chart").scrollIntoView({ behavior: "smooth" });
+    }
 
 </script>
 
